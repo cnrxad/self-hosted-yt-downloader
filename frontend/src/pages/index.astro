@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+	<div class="grid grid-cols-[17%_66%_17%] grid-rows-[99%_1%] gap-0 h-screen">
+		<div
+			class="col-start-1 col-end-4 row-start-1 row-end-2 w-full h-full flex items-center justify-center"
+		>
+		</div>
+		<div
+			class="col-start-1 col-end-4 row-start-2 row-end-3 w-full h-full flex items-center justify-center"
+		>
+			<Footer />
+		</div>
+		<div
+			class="col-start-2 col-end-3 row-start-1 row-end-2 w-full h-full flex items-center justify-center"
+		>
+			<Main />
+		</div>
+	</div>
+
+	<script type="module">
+		const CURRENT_VERSION = "0.0.1";
+		const GITHUB_REPO = "cnrxad/self-hosted-yt-downloader";
+
+		async function getLatestRelease() {
+			try {
+				const res = await fetch(
+					`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`,
+				);
+				if (!res.ok) throw new Error("No se pudo obtener la release");
+				const data = await res.json();
+				return data.tag_name;
+			} catch (e) {
+				console.error(e);
+				return null;
+			}
+		}
+
+		async function checkVersion() {
+			const latest = await getLatestRelease();
+			if (!latest) return;
+
+			if (latest !== CURRENT_VERSION) {
+				const banner = document.createElement("div");
+				banner.id = "updateBanner";
+
+				const isMobile =
+					window.matchMedia("(max-width: 640px)").matches;
+				let htmlContent;
+				if (isMobile) {
+					htmlContent = `<span>Download the latest <a href="https://github.com/${GITHUB_REPO}/releases/latest" target="_blank" style="text-decoration: underline; font-weight:bold;">version</a></span>`;
+				} else {
+					htmlContent = `<span>Hi! You're using an outdated version of this app! Download the latest <a href="https://github.com/${GITHUB_REPO}/releases/latest" target="_blank" style="text-decoration: underline; font-weight:bold;">version</a> (${latest})</span>`;
+				}
+
+				banner.innerHTML = `
+          ${htmlContent}
+          <button id="closeBanner" class="closeBtn">×</button>
+        `;
+
+				Object.assign(banner.style, {
+					position: "fixed",
+					top: "-60px",
+					left: "0",
+					right: "0",
+					height: "50px",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					gap: "1rem",
+					background: "linear-gradient(to right, #1e40af, #3b82f6)",
+					color: "white",
+					fontWeight: "bold",
+					fontSize: "1.05rem",
+					zIndex: 9999,
+					padding: "0 1rem",
+					borderBottomLeftRadius: "6px",
+					borderBottomRightRadius: "6px",
+					boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+					transition:
+						"top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+				});
+
+				document.body.appendChild(banner);
+
+				// Animación de entrada
+				requestAnimationFrame(() => {
+					banner.style.top = "0";
+				});
+
+				// Botón de cerrar a la derecha
+				const closeBtn = document.getElementById("closeBanner");
+				Object.assign(closeBtn.style, {
+					position: "absolute",
+					right: "10px",
+					fontSize: "1.5rem",
+					background: "transparent",
+					border: "none",
+					color: "white",
+					cursor: "pointer",
+				});
+				closeBtn.onclick = () => {
+					banner.style.top = "-60px";
+					setTimeout(() => banner.remove(), 600);
+				};
+			}
+		}
+
+		checkVersion();
+	</script>
+</Layout>

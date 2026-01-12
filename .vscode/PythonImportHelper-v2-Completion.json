@@ -1,0 +1,493 @@
+[
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Query",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "WebSocket",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "WebSocketDisconnect",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "yt_dlp",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "yt_dlp",
+        "description": "yt_dlp",
+        "detail": "yt_dlp",
+        "documentation": {}
+    },
+    {
+        "label": "YoutubeDL",
+        "importPath": "yt_dlp",
+        "description": "yt_dlp",
+        "isExtraImport": true,
+        "detail": "yt_dlp",
+        "documentation": {}
+    },
+    {
+        "label": "YoutubeDL",
+        "importPath": "yt_dlp",
+        "description": "yt_dlp",
+        "isExtraImport": true,
+        "detail": "yt_dlp",
+        "documentation": {}
+    },
+    {
+        "label": "YoutubeDL",
+        "importPath": "yt_dlp",
+        "description": "yt_dlp",
+        "isExtraImport": true,
+        "detail": "yt_dlp",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "StreamingResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "StreamingResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "VideoRequest",
+        "importPath": "app.models.schemas",
+        "description": "app.models.schemas",
+        "isExtraImport": true,
+        "detail": "app.models.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "VideoRequest",
+        "importPath": "app.models.schemas",
+        "description": "app.models.schemas",
+        "isExtraImport": true,
+        "detail": "app.models.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "VideoResponse",
+        "importPath": "app.models.schemas",
+        "description": "app.models.schemas",
+        "isExtraImport": true,
+        "detail": "app.models.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "download_video",
+        "importPath": "app.services.downloader",
+        "description": "app.services.downloader",
+        "isExtraImport": true,
+        "detail": "app.services.downloader",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "deepcopy",
+        "importPath": "copy",
+        "description": "copy",
+        "isExtraImport": true,
+        "detail": "copy",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "glob",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "glob",
+        "description": "glob",
+        "detail": "glob",
+        "documentation": {}
+    },
+    {
+        "label": "traceback",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "traceback",
+        "description": "traceback",
+        "detail": "traceback",
+        "documentation": {}
+    },
+    {
+        "label": "urlparse",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "parse_qs",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "urlunparse",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "VideoRequest",
+        "kind": 6,
+        "importPath": "backend.app.api.analyze",
+        "description": "backend.app.api.analyze",
+        "peekOfCode": "class VideoRequest(BaseModel):\n    url: str\n# -----------------------------\n# HELPERS\n# -----------------------------\ndef extraer_video_id(url: str) -> str | None:\n    \"\"\"\n    Extrae el ID de vídeo desde cualquier URL de YouTube\n    (watch, shorts, embed, youtu.be, playlists con v=, etc)\n    \"\"\"",
+        "detail": "backend.app.api.analyze",
+        "documentation": {}
+    },
+    {
+        "label": "extraer_video_id",
+        "kind": 2,
+        "importPath": "backend.app.api.analyze",
+        "description": "backend.app.api.analyze",
+        "peekOfCode": "def extraer_video_id(url: str) -> str | None:\n    \"\"\"\n    Extrae el ID de vídeo desde cualquier URL de YouTube\n    (watch, shorts, embed, youtu.be, playlists con v=, etc)\n    \"\"\"\n    patterns = [\n        r\"(?:v=|\\/)([0-9A-Za-z_-]{11})\",\n        r\"\\/shorts\\/([0-9A-Za-z_-]{11})\",\n        r\"embed\\/([0-9A-Za-z_-]{11})\",\n        r\"youtu\\.be\\/([0-9A-Za-z_-]{11})\",",
+        "detail": "backend.app.api.analyze",
+        "documentation": {}
+    },
+    {
+        "label": "sanitize_youtube_url",
+        "kind": 2,
+        "importPath": "backend.app.api.analyze",
+        "description": "backend.app.api.analyze",
+        "peekOfCode": "def sanitize_youtube_url(url: str) -> str | None:\n    \"\"\"\n    Devuelve una URL de YouTube limpia SOLO con ?v=VIDEO_ID\n    Elimina playlists, radios, mixes y cualquier parámetro extra.\n    \"\"\"\n    video_id = extraer_video_id(url)\n    if not video_id:\n        return None\n    return f\"https://www.youtube.com/watch?v={video_id}\"\n# -----------------------------",
+        "detail": "backend.app.api.analyze",
+        "documentation": {}
+    },
+    {
+        "label": "analyze_video",
+        "kind": 2,
+        "importPath": "backend.app.api.analyze",
+        "description": "backend.app.api.analyze",
+        "peekOfCode": "def analyze_video(req: VideoRequest):\n    # 1. SANITIZAMOS LA URL (CLAVE)\n    clean_url = sanitize_youtube_url(req.url)\n    if not clean_url:\n        return {\"error\": \"URL de YouTube no válida o no se pudo extraer el vídeo\"}\n    # 2. OPCIONES yt-dlp ANTI-PLAYLIST DEFINITIVAS\n    ydl_opts = {\n        \"quiet\": True,\n        \"noplaylist\": True,\n        \"playlist_items\": \"0\",",
+        "detail": "backend.app.api.analyze",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "backend.app.api.analyze",
+        "description": "backend.app.api.analyze",
+        "peekOfCode": "router = APIRouter()\nclass VideoRequest(BaseModel):\n    url: str\n# -----------------------------\n# HELPERS\n# -----------------------------\ndef extraer_video_id(url: str) -> str | None:\n    \"\"\"\n    Extrae el ID de vídeo desde cualquier URL de YouTube\n    (watch, shorts, embed, youtu.be, playlists con v=, etc)",
+        "detail": "backend.app.api.analyze",
+        "documentation": {}
+    },
+    {
+        "label": "download",
+        "kind": 2,
+        "importPath": "backend.app.api.download",
+        "description": "backend.app.api.download",
+        "peekOfCode": "def download(url: str, format: str):\n    if format == \"mp3\":\n        cmd = [\n            \"yt-dlp\",\n            \"-f\", \"bestaudio\",\n            \"-o\", \"-\",\n            url\n        ]\n        headers = {\n            \"Content-Disposition\": \"attachment; filename=audio.mp3\"",
+        "detail": "backend.app.api.download",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "backend.app.api.download",
+        "description": "backend.app.api.download",
+        "peekOfCode": "router = APIRouter()\n@router.get(\"/download\")\ndef download(url: str, format: str):\n    if format == \"mp3\":\n        cmd = [\n            \"yt-dlp\",\n            \"-f\", \"bestaudio\",\n            \"-o\", \"-\",\n            url\n        ]",
+        "detail": "backend.app.api.download",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "backend.app.api.videos",
+        "description": "backend.app.api.videos",
+        "peekOfCode": "router = APIRouter()\n@router.post(\"/videos\", response_model=VideoResponse)\nasync def post_video(req: VideoRequest):\n    try:\n        meta = download_video(req.url)\n        return VideoResponse(\n            id=int(meta[\"id\"]),\n            url=meta[\"filename\"],\n            title=req.title or meta[\"title\"],\n            duration=meta[\"duration\"],",
+        "detail": "backend.app.api.videos",
+        "documentation": {}
+    },
+    {
+        "label": "VideoRequest",
+        "kind": 6,
+        "importPath": "backend.app.models.schemas",
+        "description": "backend.app.models.schemas",
+        "peekOfCode": "class VideoRequest(BaseModel):\n    \"\"\"Datos enviados desde el formulario del Frontend.\"\"\"\n    url: str = Field(..., title=\"URL del vídeo\", description=\"Enlace de YouTube\")\n    title: str | None = Field(None, title=\"Título opcional\")\nclass VideoResponse(BaseModel):\n    \"\"\"Respuesta enviada al cliente.\"\"\"\n    id: int\n    url: str\n    title: str\n    duration: float",
+        "detail": "backend.app.models.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "VideoResponse",
+        "kind": 6,
+        "importPath": "backend.app.models.schemas",
+        "description": "backend.app.models.schemas",
+        "peekOfCode": "class VideoResponse(BaseModel):\n    \"\"\"Respuesta enviada al cliente.\"\"\"\n    id: int\n    url: str\n    title: str\n    duration: float\n    thumbnail_url: str",
+        "detail": "backend.app.models.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "download_video",
+        "kind": 2,
+        "importPath": "backend.app.services.downloader",
+        "description": "backend.app.services.downloader",
+        "peekOfCode": "def download_video(video_url: str) -> Dict[str, Any]:\n    ytdl_opts: Dict[str, Any] = {\n        \"format\": \"best\",\n        \"outtmpl\": str(DOWNLOADS_DIR / \"%(title)s-%(id)s.%(ext)s\"),\n        \"quiet\": True,\n    }\n    with yt_dlp.YoutubeDL(ytdl_opts) as ydl: #type: ignore\n        result = ydl.extract_info(video_url, download=True)\n    return {\n        \"id\": result[\"id\"],",
+        "detail": "backend.app.services.downloader",
+        "documentation": {}
+    },
+    {
+        "label": "DOWNLOADS_DIR",
+        "kind": 5,
+        "importPath": "backend.app.services.downloader",
+        "description": "backend.app.services.downloader",
+        "peekOfCode": "DOWNLOADS_DIR = Path(\"downloads\")\nDOWNLOADS_DIR.mkdir(exist_ok=True)\ndef download_video(video_url: str) -> Dict[str, Any]:\n    ytdl_opts: Dict[str, Any] = {\n        \"format\": \"best\",\n        \"outtmpl\": str(DOWNLOADS_DIR / \"%(title)s-%(id)s.%(ext)s\"),\n        \"quiet\": True,\n    }\n    with yt_dlp.YoutubeDL(ytdl_opts) as ydl: #type: ignore\n        result = ydl.extract_info(video_url, download=True)",
+        "detail": "backend.app.services.downloader",
+        "documentation": {}
+    },
+    {
+        "label": "extraer_video_id",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def extraer_video_id(url: str) -> str | None:\n    \"\"\"Extrae SOLO el video ID de cualquier URL de YouTube\"\"\"\n    patterns = [\n        r'(?:v=|\\/)([0-9A-Za-z_-]{11}).*',\n        r'\\/shorts\\/([0-9A-Za-z_-]{11})',\n        r'embed\\/([0-9A-Za-z_-]{11})',\n    ]\n    for pattern in patterns:\n        match = re.search(pattern, url)\n        if match:",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "es_playlist_pura",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def es_playlist_pura(url: str) -> bool:\n    parsed = urlparse(url)\n    qs = parse_qs(parsed.query)\n    # Playlist sin vídeo explícito\n    return \"list\" in qs and \"v\" not in qs and not extraer_video_id(url)\nBLOCKED_PARAMS = {\n    \"list\",\n    \"index\",\n    \"start_radio\",\n    \"radio\",",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "sanitize_youtube_url",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def sanitize_youtube_url(url: str) -> str | None:\n    video_id = extraer_video_id(url)\n    if not video_id:\n        return None\n    return f\"https://www.youtube.com/watch?v={video_id}\"\n@app.get(\"/\")\ndef root():\n    return {\"message\": \"YT Downloader API funcionando\"}\ndef progress_hook(d):\n    if d[\"status\"] == \"downloading\":",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "root",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def root():\n    return {\"message\": \"YT Downloader API funcionando\"}\ndef progress_hook(d):\n    if d[\"status\"] == \"downloading\":\n        total = d.get(\"total_bytes\") or d.get(\"total_bytes_estimate\")\n        downloaded = d.get(\"downloaded_bytes\")\n        if total and downloaded:\n            percent = round(downloaded / total * 100, 2)\n            import asyncio\n            asyncio.create_task(broadcast_progress(percent))",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "progress_hook",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def progress_hook(d):\n    if d[\"status\"] == \"downloading\":\n        total = d.get(\"total_bytes\") or d.get(\"total_bytes_estimate\")\n        downloaded = d.get(\"downloaded_bytes\")\n        if total and downloaded:\n            percent = round(downloaded / total * 100, 2)\n            import asyncio\n            asyncio.create_task(broadcast_progress(percent))\n    elif d[\"status\"] == \"finished\":\n        import asyncio",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "app = FastAPI(\n    title=\"YT Downloader API\",\n    description=\"API para descargar videos de YouTube y obtener calidades\",\n    version=\"1.0.0\",\n)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"http://localhost:3000\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "BLOCKED_PARAMS",
+        "kind": 5,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "BLOCKED_PARAMS = {\n    \"list\",\n    \"index\",\n    \"start_radio\",\n    \"radio\",\n    \"pp\",\n    \"feature\"\n}\ndef sanitize_youtube_url(url: str) -> str | None:\n    video_id = extraer_video_id(url)",
+        "detail": "backend.app.main",
+        "documentation": {}
+    }
+]

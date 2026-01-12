@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .animate-rainbow-glow {
+        animation: rainbow-glow 5s ease infinite;
+        background-size: 400% 400%;
+        opacity: 0.5;
+    }
+
+    @keyframes rainbow-glow {
+        0% {
+            background-position: 0% 50%;
+            transform: scale(0.8) rotate(0deg);
+            opacity: 0.25;
+        }
+
+        25% {
+            background-position: 50% 75%;
+            transform: scale(0.9) rotate(5deg);
+            opacity: 0.35;
+        }
+
+        50% {
+            background-position: 100% 50%;
+            transform: scale(1) rotate(-5deg);
+            opacity: 0.55;
+        }
+
+        75% {
+            background-position: 50% 25%;
+            transform: scale(0.9) rotate(5deg);
+            opacity: 0.35;
+        }
+
+        100% {
+            background-position: 0% 50%;
+            transform: scale(0.8) rotate(0deg);
+            opacity: 0.25;
+        }
+    }
+}
+
+
+.footer-glow {
+    position: relative;
+    background-color: #111;
+    /* Fondo del footer */
+    width: 130%;
+    border-radius: 12px 12px 0 0;
+
+    /* Sombra que simula glow */
+    box-shadow: 0 -20px 60px rgba(59, 130, 246, 1);
+
+    /* Animación de parpadeo */
+    animation: glowPulse 10s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 -20px 60px rgba(59, 130, 246, 1);
+    }
+
+    50% {
+        box-shadow: 0 -15px 60px rgba(255, 255, 255, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 -20px 60px rgba(59, 130, 246, 1);
+    }
+}
+
+/* 
+rgba(59, 130, 246, 1) 0%,
+rgba(255, 255, 255, 0.5) 50%,
+rgba(59, 130, 246, 1) 100% */

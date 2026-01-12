@@ -1,0 +1,52 @@
+<footer class="fixed bottom-0 left-0 w-full h-2 bg-neutral-800 overflow-hidden">
+    <div
+        id="progressBar"
+        class="h-full w-0 shimmer transition-all duration-300"
+    >
+    </div>
+</footer>
+
+<script type="module" is:inline>
+    const bar = document.getElementById("progressBar");
+
+    const ws = new WebSocket("ws://localhost:8000/ws/progress");
+
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.type === "progress") {
+            const percent = Math.min(data.value, 100);
+            bar.style.width = percent + "%";
+        }
+    };
+
+    ws.onclose = () => {
+        bar.style.width = "0%";
+    };
+
+    ws.onopen = () => {
+        bar.style.width = "0%";
+    };
+</script>
+<style>
+    .shimmer {
+        background: linear-gradient(
+            to right,
+            #4b5563 0%,
+            #6b7280 20%,
+            #4b5563 40%,
+            #4b5563 100%
+        );
+        background-size: 200% auto;
+        animation: shimmer 1.5s linear infinite;
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-position: 200% center;
+        }
+        100% {
+            background-position: -200% center;
+        }
+    }
+</style>
