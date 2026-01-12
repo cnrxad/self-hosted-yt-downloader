@@ -1,43 +1,53 @@
-#cnrxad - 2026
+# cnrxad - 2026
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
-from io import BytesIO
-from typing import Any
-from copy import deepcopy
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import StreamingResponse, JSONResponse
 from yt_dlp import YoutubeDL
-from .api.analyze import router as analyze_router
+from copy import deepcopy
+from app.api.analyze import router as analyze_router
+
 import tempfile
 import os
 import re
 import glob
 import traceback
-from urllib.parse import urlparse, parse_qs, urlunparse
-import re
-from fastapi import WebSocket, WebSocketDisconnect
 import json
+import sys
+from io import BytesIO
+from urllib.parse import urlparse, parse_qs
+from threading import Thread
+import webbrowser
+import uvicorn
 
-
+# -------------------------------
+# APP
+# -------------------------------
 app = FastAPI(
-    title="YT Downloader API",
-    description="API para descargar videos de YouTube y obtener calidades",
+    title="cnrxad's self hosted yt downloader - API",
+    description="cnrxad - API",
     version="1.0.0",
 )
 
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
 app.include_router(analyze_router, prefix="/api")
 
+# -------------------------------
+# Uvicorn server (GLOBAL)
+# -------------------------------
+server: uvicorn.Server | None = None
 
+# -------------------------------
+# WebSocket progress
+# -------------------------------
 progress_connections: set[WebSocket] = set()
 
 @app.websocket("/ws/progress")
@@ -49,7 +59,7 @@ async def progress_ws(ws: WebSocket):
             await ws.receive_text()
     except WebSocketDisconnect:
         progress_connections.discard(ws)
-        
+
 async def broadcast_progress(percent: float):
     dead = set()
     for ws in progress_connections:
@@ -62,9 +72,10 @@ async def broadcast_progress(percent: float):
             dead.add(ws)
     progress_connections.difference_update(dead)
 
-
+# -------------------------------
+# YouTube helpers
+# -------------------------------
 def extraer_video_id(url: str) -> str | None:
-    """Extrae SOLO el video ID de cualquier URL de YouTube"""
     patterns = [
         r'(?:v=|\/)([0-9A-Za-z_-]{11}).*',
         r'\/shorts\/([0-9A-Za-z_-]{11})',
@@ -76,22 +87,10 @@ def extraer_video_id(url: str) -> str | None:
             return match.group(1)
     return None
 
-
 def es_playlist_pura(url: str) -> bool:
     parsed = urlparse(url)
     qs = parse_qs(parsed.query)
-
-    # Playlist sin vídeo explícito
     return "list" in qs and "v" not in qs and not extraer_video_id(url)
-
-BLOCKED_PARAMS = {
-    "list",
-    "index",
-    "start_radio",
-    "radio",
-    "pp",
-    "feature"
-}
 
 def sanitize_youtube_url(url: str) -> str | None:
     video_id = extraer_video_id(url)
@@ -99,11 +98,9 @@ def sanitize_youtube_url(url: str) -> str | None:
         return None
     return f"https://www.youtube.com/watch?v={video_id}"
 
-@app.get("/")
-def root():
-    return {"message": "YT Downloader API funcionando"}
-
-
+# -------------------------------
+# yt-dlp progress hook
+# -------------------------------
 def progress_hook(d):
     if d["status"] == "downloading":
         total = d.get("total_bytes") or d.get("total_bytes_estimate")
@@ -117,28 +114,29 @@ def progress_hook(d):
         import asyncio
         asyncio.create_task(broadcast_progress(100))
 
-
+# -------------------------------
+# API
+# -------------------------------
+@app.get("/api")
+def root_api():
+    return {"message": "YT Downloader API funcionando"}
 
 @app.get("/api/download")
-async def download_video(url: str = Query(...), format: str = Query(...)):
+async def download_video(
+    url: str = Query(...),
+    format: str = Query(...)
+):
     try:
-        # 1. RECHAZAMOS playlists puras
         if es_playlist_pura(url):
-            return {"error": "No se permiten enlaces de playlist completos, solo vídeos individuales."}
+            return {"error": "No se permiten playlists completas"}
 
-        # 2. SANITIZAMOS URL
         clean_url = sanitize_youtube_url(url)
         if not clean_url:
-            return {"error": "URL de YouTube no válida o no se pudo extraer el vídeo"}
-
-        # 3. RECHAZAMOS playlists puras
-        if es_playlist_pura(url):
-            return {"error": "No se permiten enlaces de playlist completos, solo vídeos individuales."}
+            return {"error": "URL de YouTube no válida"}
 
         buffer = BytesIO()
-        
-        # OPCIONES MÁXIMAS - URL YA ES SOLO VÍDEO
-        ydl_opts: dict[str, Any] = {
+
+        ydl_opts = {
             "quiet": True,
             "noplaylist": True,
             "playlistend": 1,
@@ -149,92 +147,144 @@ async def download_video(url: str = Query(...), format: str = Query(...)):
                 }
             },
         }
-        
-        postprocessors = None
-        ext = "mp4"
-        filename = None
-        requested_height = None
-        real_resolution = None
 
-        # MP3 o MP4
+        ext = "mp4"
+        postprocessors = None
+        requested_height = None
+
         if format.lower() == "mp3":
             ext = "mp3"
+            ydl_format = "bestaudio/best"
             postprocessors = [{
                 "key": "FFmpegExtractAudio",
                 "preferredcodec": "mp3",
                 "preferredquality": "192",
             }]
-            ydl_format = "bestaudio/best"
         else:
-            ext = "mp4"
-            ydl_format = "bestvideo+bestaudio/best"
             match = re.match(r"(\d+)p", format.lower())
-            if match:
-                requested_height = int(match.group(1))
+            MAX_HEIGHT = 1080
+            requested_height = min(
+                int(match.group(1)) if match else MAX_HEIGHT,
+                MAX_HEIGHT
+            )
+            ydl_format = "bestvideo+bestaudio/best"
 
-        # Extraemos info del VÍDEO ESPECÍFICO
+        # Obtener info
         with YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(clean_url, download=False)  # <- URL LIMPIA
-            
-            if info.get("_type") == "playlist":
-                return {"error": "Error interno: detección de playlist imposible"}
-
-            title = info.get("title") or ("audio" if ext == "mp3" else "video")
+            info = ydl.extract_info(clean_url, download=False)
+            title = info.get("title", "video")
             safe_title = re.sub(r'[^a-zA-Z0-9_\- ]', '', title)
             filename = f"{safe_title}.{ext}"
 
-            # Selección formato MP4
+            best_candidate = None
             if ext == "mp4":
-                formats_list = info.get("formats") or []
+                formats_list = info.get("formats", [])
                 candidates = [
                     f for f in formats_list
-                    if f.get("vcodec") not in (None, "none") and f.get("height") is not None
+                    if f.get("vcodec") != "none"
+                    and f.get("acodec") != "none"
+                    and f.get("height", 0) <= requested_height
                 ]
-
                 if candidates:
-                    if requested_height:
-                        candidates = [f for f in candidates if f["height"] <= requested_height]
-                    if candidates:
-                        best_candidate = max(candidates, key=lambda x: x.get("height", 0))
-                        real_resolution = best_candidate.get("height", None)
-                        if best_candidate.get("acodec") != "none" and best_candidate.get("vcodec") != "none":
-                            ydl_format = best_candidate.get("format_id") or ydl_format
-                        else:
-                            ydl_format = "bestvideo+bestaudio/best"
-                    else:
-                        ydl_format = "bestvideo+bestaudio/best"
-                else:
-                    ydl_format = "bestvideo+bestaudio/best"
+                    best_candidate = max(
+                        candidates,
+                        key=lambda x: x.get("height", 0)
+                    )
+                    ydl_format = best_candidate.get("format_id", ydl_format)
 
-        # Descarga
+        # Descargar
         with tempfile.TemporaryDirectory() as tmpdir:
             outtmpl = os.path.join(tmpdir, "%(title)s.%(ext)s")
+
             ydl_opts_file = deepcopy(ydl_opts)
             ydl_opts_file.update({
                 "outtmpl": outtmpl,
                 "format": ydl_format,
             })
-            if postprocessors is not None:
+
+            if postprocessors:
                 ydl_opts_file["postprocessors"] = postprocessors
 
             with YoutubeDL(ydl_opts_file) as ydl:
-                ydl.download([clean_url])  # <- URL LIMPIA
+                ydl.download([clean_url])
 
-            file_list = glob.glob(os.path.join(tmpdir, f"*.{ext}"))
-            if not file_list:
-                return {"error": "No se generó el archivo descargado"}
+            files = glob.glob(os.path.join(tmpdir, f"*.{ext}"))
+            if not files:
+                return {"error": "No se generó el archivo"}
 
-            with open(file_list[0], "rb") as f:
+            with open(files[0], "rb") as f:
                 buffer.write(f.read())
 
         buffer.seek(0)
-        headers = {"Content-Disposition": f'attachment; filename="{filename}"'}
-        response = StreamingResponse(buffer, media_type="application/octet-stream", headers=headers)
-        if ext == "mp4":
-            response.headers["X-Video-Resolution"] = str(real_resolution or "unknown")
+
+        headers = {
+            "Content-Disposition": f'attachment; filename="{filename}"'
+        }
+
+        response = StreamingResponse(
+            buffer,
+            media_type="application/octet-stream",
+            headers=headers,
+        )
+
+        if ext == "mp4" and best_candidate:
+            response.headers["X-Video-Resolution"] = str(
+                best_candidate.get("height", "unknown")
+            )
 
         return response
 
     except Exception as e:
         traceback.print_exc()
         return {"error": str(e)}
+
+# -------------------------------
+# SHUTDOWN (FUNCIONA)
+# -------------------------------
+@app.post("/api/shutdown")
+async def shutdown():
+    global server
+    if server:
+        server.should_exit = True
+        return {"message": "Servidor cerrándose..."}
+    return {"error": "Servidor no inicializado"}
+
+# -------------------------------
+# FRONTEND
+# -------------------------------
+def get_base_path():
+    if getattr(sys, "frozen", False):
+        return sys._MEIPASS
+    return os.path.dirname(os.path.abspath(__file__))
+
+frontend_dist = os.path.abspath(
+    os.path.join(get_base_path(), "frontend", "dist")
+)
+
+app.mount(
+    "/",
+    StaticFiles(directory=frontend_dist, html=True),
+    name="frontend",
+)
+
+# -------------------------------
+# SERVER
+# -------------------------------
+def start_server():
+    global server
+    config = uvicorn.Config(
+        app,
+        host="127.0.0.1",
+        port=4321,
+        log_config=None,
+    )
+    server = uvicorn.Server(config)
+    server.run()
+
+if __name__ == "__main__":
+    Thread(
+        target=lambda: webbrowser.open("http://localhost:4321"),
+        daemon=True
+    ).start()
+
+    start_server()

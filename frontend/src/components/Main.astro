@@ -43,18 +43,39 @@
             />
 
             <div class="relative inline-block w-full">
-                <div class="relative w-full flex justify-center">
+                <div
+                    class="relative w-full h-20 flex items-center justify-center"
+                >
+                    <!-- glow -->
                     <div
-                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%+2rem)] h-[calc(100%+1rem)] bg-linear-to-r from-blue-700 via-white to-blue-500 opacity-50 rounded-xl blur-3xl -z-10 pointer-events-none"
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+               w-[calc(100%+2rem)] h-[calc(100%+1rem)]
+               bg-linear-to-r from-blue-700 via-white to-blue-500
+               opacity-50 rounded-xl blur-3xl -z-10 pointer-events-none"
                     >
                     </div>
 
+                    <!-- Botón principal centrado -->
                     <button
                         id="downloadBtn"
-                        class="relative z-10 bg-white text-black px-14 py-3 rounded-lg font-semibold transition-all hover:shadow-2xl hover:shadow-blue-500/50 active:scale-95"
+                        class="absolute left-1/2 -translate-x-1/2 z-10
+               bg-white text-black w-64 py-3 rounded-lg font-semibold
+               transition-all hover:shadow-2xl hover:shadow-blue-500/50
+               active:scale-95"
                     >
                         Download
                     </button>
+
+                    <!-- Botón secundario (no afecta al centro) -->
+                    <div class="ml-auto">
+                        <button
+                            id="btn-shutdown"
+                            class="relative z-10 bg-white/80 text-black px-6 py-3 rounded-lg
+                   font-medium transition-all active:scale-95"
+                        >
+                            Stop server
+                        </button>
+                    </div>
                 </div>
                 <div
                     id="downloadDropdown"
@@ -132,7 +153,7 @@
         clearOptions();
 
         try {
-            const res = await fetch("http://localhost:8000/api/analyze", {
+            const res = await fetch("http://localhost:4321/api/analyze", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ url: input.value.trim() }),
@@ -173,7 +194,7 @@
 
         const url = encodeURIComponent(input.value.trim());
 
-        const downloadUrl = `http://localhost:8000/api/download?url=${url}&format=${format}`;
+        const downloadUrl = `http://localhost:4321/api/download?url=${url}&format=${format}`;
 
         // descarga real del navegador
         window.location.href = downloadUrl;
@@ -200,6 +221,20 @@
         if (dropdownOpen && !dropdown.contains(e.target) && e.target !== btn)
             toggleDropdown(false);
     });
+
+    document
+        .getElementById("btn-shutdown")
+        .addEventListener("click", async () => {
+            try {
+                const res = await fetch("http://localhost:4321/api/shutdown", {
+                    method: "POST",
+                });
+                const data = await res.json();
+                alert(data.message);
+            } catch (e) {
+                console.error("Error al cerrar el servidor:", e);
+            }
+        });
 </script>
 <style>
     #terminal-cursor {

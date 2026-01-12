@@ -64,6 +64,14 @@
         "documentation": {}
     },
     {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "BaseModel",
         "importPath": "pydantic",
         "description": "pydantic",
@@ -146,6 +154,14 @@
         "documentation": {}
     },
     {
+        "label": "JSONResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
         "label": "subprocess",
         "kind": 6,
         "isExtraImport": true,
@@ -211,14 +227,6 @@
         "documentation": {}
     },
     {
-        "label": "Any",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
         "label": "Path",
         "importPath": "pathlib",
         "description": "pathlib",
@@ -235,11 +243,11 @@
         "documentation": {}
     },
     {
-        "label": "BytesIO",
-        "importPath": "io",
-        "description": "io",
+        "label": "StaticFiles",
+        "importPath": "fastapi.staticfiles",
+        "description": "fastapi.staticfiles",
         "isExtraImport": true,
-        "detail": "io",
+        "detail": "fastapi.staticfiles",
         "documentation": {}
     },
     {
@@ -248,6 +256,14 @@
         "description": "copy",
         "isExtraImport": true,
         "detail": "copy",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "app.api.analyze",
+        "description": "app.api.analyze",
+        "isExtraImport": true,
+        "detail": "app.api.analyze",
         "documentation": {}
     },
     {
@@ -287,6 +303,32 @@
         "documentation": {}
     },
     {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
         "label": "urlparse",
         "importPath": "urllib.parse",
         "description": "urllib.parse",
@@ -303,20 +345,29 @@
         "documentation": {}
     },
     {
-        "label": "urlunparse",
-        "importPath": "urllib.parse",
-        "description": "urllib.parse",
+        "label": "Thread",
+        "importPath": "threading",
+        "description": "threading",
         "isExtraImport": true,
-        "detail": "urllib.parse",
+        "detail": "threading",
         "documentation": {}
     },
     {
-        "label": "json",
+        "label": "webbrowser",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "json",
-        "description": "json",
-        "detail": "json",
+        "importPath": "webbrowser",
+        "description": "webbrowser",
+        "detail": "webbrowser",
+        "documentation": {}
+    },
+    {
+        "label": "uvicorn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uvicorn",
+        "description": "uvicorn",
+        "detail": "uvicorn",
         "documentation": {}
     },
     {
@@ -432,7 +483,7 @@
         "kind": 2,
         "importPath": "backend.app.main",
         "description": "backend.app.main",
-        "peekOfCode": "def extraer_video_id(url: str) -> str | None:\n    \"\"\"Extrae SOLO el video ID de cualquier URL de YouTube\"\"\"\n    patterns = [\n        r'(?:v=|\\/)([0-9A-Za-z_-]{11}).*',\n        r'\\/shorts\\/([0-9A-Za-z_-]{11})',\n        r'embed\\/([0-9A-Za-z_-]{11})',\n    ]\n    for pattern in patterns:\n        match = re.search(pattern, url)\n        if match:",
+        "peekOfCode": "def extraer_video_id(url: str) -> str | None:\n    patterns = [\n        r'(?:v=|\\/)([0-9A-Za-z_-]{11}).*',\n        r'\\/shorts\\/([0-9A-Za-z_-]{11})',\n        r'embed\\/([0-9A-Za-z_-]{11})',\n    ]\n    for pattern in patterns:\n        match = re.search(pattern, url)\n        if match:\n            return match.group(1)",
         "detail": "backend.app.main",
         "documentation": {}
     },
@@ -441,7 +492,7 @@
         "kind": 2,
         "importPath": "backend.app.main",
         "description": "backend.app.main",
-        "peekOfCode": "def es_playlist_pura(url: str) -> bool:\n    parsed = urlparse(url)\n    qs = parse_qs(parsed.query)\n    # Playlist sin vídeo explícito\n    return \"list\" in qs and \"v\" not in qs and not extraer_video_id(url)\nBLOCKED_PARAMS = {\n    \"list\",\n    \"index\",\n    \"start_radio\",\n    \"radio\",",
+        "peekOfCode": "def es_playlist_pura(url: str) -> bool:\n    parsed = urlparse(url)\n    qs = parse_qs(parsed.query)\n    return \"list\" in qs and \"v\" not in qs and not extraer_video_id(url)\ndef sanitize_youtube_url(url: str) -> str | None:\n    video_id = extraer_video_id(url)\n    if not video_id:\n        return None\n    return f\"https://www.youtube.com/watch?v={video_id}\"\n# -------------------------------",
         "detail": "backend.app.main",
         "documentation": {}
     },
@@ -450,16 +501,7 @@
         "kind": 2,
         "importPath": "backend.app.main",
         "description": "backend.app.main",
-        "peekOfCode": "def sanitize_youtube_url(url: str) -> str | None:\n    video_id = extraer_video_id(url)\n    if not video_id:\n        return None\n    return f\"https://www.youtube.com/watch?v={video_id}\"\n@app.get(\"/\")\ndef root():\n    return {\"message\": \"YT Downloader API funcionando\"}\ndef progress_hook(d):\n    if d[\"status\"] == \"downloading\":",
-        "detail": "backend.app.main",
-        "documentation": {}
-    },
-    {
-        "label": "root",
-        "kind": 2,
-        "importPath": "backend.app.main",
-        "description": "backend.app.main",
-        "peekOfCode": "def root():\n    return {\"message\": \"YT Downloader API funcionando\"}\ndef progress_hook(d):\n    if d[\"status\"] == \"downloading\":\n        total = d.get(\"total_bytes\") or d.get(\"total_bytes_estimate\")\n        downloaded = d.get(\"downloaded_bytes\")\n        if total and downloaded:\n            percent = round(downloaded / total * 100, 2)\n            import asyncio\n            asyncio.create_task(broadcast_progress(percent))",
+        "peekOfCode": "def sanitize_youtube_url(url: str) -> str | None:\n    video_id = extraer_video_id(url)\n    if not video_id:\n        return None\n    return f\"https://www.youtube.com/watch?v={video_id}\"\n# -------------------------------\n# yt-dlp progress hook\n# -------------------------------\ndef progress_hook(d):\n    if d[\"status\"] == \"downloading\":",
         "detail": "backend.app.main",
         "documentation": {}
     },
@@ -473,20 +515,47 @@
         "documentation": {}
     },
     {
-        "label": "app",
-        "kind": 5,
+        "label": "root_api",
+        "kind": 2,
         "importPath": "backend.app.main",
         "description": "backend.app.main",
-        "peekOfCode": "app = FastAPI(\n    title=\"YT Downloader API\",\n    description=\"API para descargar videos de YouTube y obtener calidades\",\n    version=\"1.0.0\",\n)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"http://localhost:3000\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],",
+        "peekOfCode": "def root_api():\n    return {\"message\": \"YT Downloader API funcionando\"}\n@app.get(\"/api/download\")\nasync def download_video(\n    url: str = Query(...),\n    format: str = Query(...)\n):\n    try:\n        if es_playlist_pura(url):\n            return {\"error\": \"No se permiten playlists completas\"}",
         "detail": "backend.app.main",
         "documentation": {}
     },
     {
-        "label": "BLOCKED_PARAMS",
+        "label": "get_base_path",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return sys._MEIPASS\n    return os.path.dirname(os.path.abspath(__file__))\nfrontend_dist = os.path.abspath(\n    os.path.join(get_base_path(), \"frontend\", \"dist\")\n)\napp.mount(\n    \"/\",\n    StaticFiles(directory=frontend_dist, html=True),",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "start_server",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def start_server():\n    global server\n    config = uvicorn.Config(\n        app,\n        host=\"127.0.0.1\",\n        port=4321,\n        log_config=None,\n    )\n    server = uvicorn.Server(config)\n    server.run()",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
         "kind": 5,
         "importPath": "backend.app.main",
         "description": "backend.app.main",
-        "peekOfCode": "BLOCKED_PARAMS = {\n    \"list\",\n    \"index\",\n    \"start_radio\",\n    \"radio\",\n    \"pp\",\n    \"feature\"\n}\ndef sanitize_youtube_url(url: str) -> str | None:\n    video_id = extraer_video_id(url)",
+        "peekOfCode": "app = FastAPI(\n    title=\"cnrxad's self hosted yt downloader - API\",\n    description=\"cnrxad - API\",\n    version=\"1.0.0\",\n)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "frontend_dist",
+        "kind": 5,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "frontend_dist = os.path.abspath(\n    os.path.join(get_base_path(), \"frontend\", \"dist\")\n)\napp.mount(\n    \"/\",\n    StaticFiles(directory=frontend_dist, html=True),\n    name=\"frontend\",\n)\n# -------------------------------\n# SERVER",
         "detail": "backend.app.main",
         "documentation": {}
     }

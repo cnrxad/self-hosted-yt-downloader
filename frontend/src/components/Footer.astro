@@ -9,7 +9,7 @@
 <script type="module" is:inline>
     const bar = document.getElementById("progressBar");
 
-    const ws = new WebSocket("ws://localhost:8000/ws/progress");
+    const ws = new WebSocket("ws://localhost:4321/ws/progress");
 
     ws.onmessage = (event) => {
         const data = JSON.parse(event.data);

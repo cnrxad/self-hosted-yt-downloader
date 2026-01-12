@@ -23,8 +23,20 @@ import Footer from "../components/Footer.astro";
 	</div>
 
 	<script type="module">
-		const CURRENT_VERSION = "0.0.1";
+		const CURRENT_VERSION = "0.2.0";
 		const GITHUB_REPO = "cnrxad/self-hosted-yt-downloader";
+
+		// Función para comparar versiones semánticas
+		function isOutdated(current, latest) {
+			const cur = current.split(".").map(Number);
+			const lat = latest.split(".").map(Number);
+
+			for (let i = 0; i < 3; i++) {
+				if (cur[i] > lat[i]) return false; // tu versión es más nueva
+				if (cur[i] < lat[i]) return true; // tu versión es más vieja
+			}
+			return false; // son iguales
+		}
 
 		async function getLatestRelease() {
 			try {
@@ -44,23 +56,20 @@ import Footer from "../components/Footer.astro";
 			const latest = await getLatestRelease();
 			if (!latest) return;
 
-			if (latest !== CURRENT_VERSION) {
+			if (isOutdated(CURRENT_VERSION, latest)) {
 				const banner = document.createElement("div");
 				banner.id = "updateBanner";
 
 				const isMobile =
 					window.matchMedia("(max-width: 640px)").matches;
-				let htmlContent;
-				if (isMobile) {
-					htmlContent = `<span>Download the latest <a href="https://github.com/${GITHUB_REPO}/releases/latest" target="_blank" style="text-decoration: underline; font-weight:bold;">version</a></span>`;
-				} else {
-					htmlContent = `<span>Hi! You're using an outdated version of this app! Download the latest <a href="https://github.com/${GITHUB_REPO}/releases/latest" target="_blank" style="text-decoration: underline; font-weight:bold;">version</a> (${latest})</span>`;
-				}
+				const htmlContent = isMobile
+					? `<span>Download the latest <a href="https://github.com/${GITHUB_REPO}/releases/latest" target="_blank" style="text-decoration: underline; font-weight:bold;">version</a></span>`
+					: `<span>Hi! You're using an outdated version of this app! Download the latest <a href="https://github.com/${GITHUB_REPO}/releases/latest" target="_blank" style="text-decoration: underline; font-weight:bold;">version</a> (${latest})</span>`;
 
 				banner.innerHTML = `
-          ${htmlContent}
-          <button id="closeBanner" class="closeBtn">×</button>
-        `;
+        ${htmlContent}
+        <button id="closeBanner" class="closeBtn">×</button>
+      `;
 
 				Object.assign(banner.style, {
 					position: "fixed",
@@ -92,7 +101,7 @@ import Footer from "../components/Footer.astro";
 					banner.style.top = "0";
 				});
 
-				// Botón de cerrar a la derecha
+				// Botón de cerrar
 				const closeBtn = document.getElementById("closeBanner");
 				Object.assign(closeBtn.style, {
 					position: "absolute",
