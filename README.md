@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 # YouTube self-hosted Downloader
 
@@ -12,7 +12,7 @@
 <img src="https://badges.ws/badge/Build_with_Astro-ff5a02?logo=Astro" />
 <img src="https://badges.ws/badge/Build_with_Python-366d9a?logo=Python" />
 
-</center>
+</div>
 
 
 ## Installation
