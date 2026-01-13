@@ -16,7 +16,7 @@
 
 
 ## Installation
-1. Go check the [releases](https://github.com/cnrxad/self-hosted-yt-downloader/releases) a look for the [latest](https://github.com/cnrxad/self-hosted-yt-downloader/releases/latest) one.
+1. Go check the [releases](https://github.com/cnrxad/self-hosted-yt-downloader/releases) and look for the [latest](https://github.com/cnrxad/self-hosted-yt-downloader/releases/latest) one.
 2. Download the `.exe` file.
 
 ## FAQ's
